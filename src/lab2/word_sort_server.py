@@ -1,6 +1,14 @@
 import socket
 import threading
 import argparse
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(threadName)s %(levelname)s %(message)s",
+    handlers=[logging.StreamHandler()]
+)
+
 
 def sort_words(text):
     words = text.split()
@@ -13,7 +21,7 @@ parser.add_argument("--port", type=int, default=6000, help="Порт (по ум�
 args = parser.parse_args()
 
 def handle_client(conn, addr):
-    print(f"[Сортировка] Подключено: {addr}")
+    logging.info(f"[Сортировка] Подключено: {addr}")
     with conn:
         while True:
             data = conn.recv(4096).decode()
@@ -25,7 +33,7 @@ def handle_client(conn, addr):
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
     server.bind((args.host, args.port))
     server.listen()
-    print(f"[Сортировка] Сервер запущен на {args.host}:{args.port}")
+    logging.info(f"[Сортировка] Сервер запущен на {args.host}:{args.port}")
     while True:
         conn, addr = server.accept()
         threading.Thread(target=handle_client, args=(conn, addr)).start()

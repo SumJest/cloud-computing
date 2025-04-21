@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   cloud-computing:
-    image: $CI_REGISTRY_IMAGE:$DOCKER_TAG
+    build: .
     restart: unless-stopped
     environment:
       WORD_SORT_SERVER_HOST: 0.0.0.0
