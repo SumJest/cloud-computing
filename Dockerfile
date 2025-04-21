@@ -41,6 +41,7 @@ RUN pip install \
       --find-links=/wheels \
       -r requirements.txt
 
+python -m grpc_tools.protoc -I lab3 --python_out=./lab3 --grpc_python_out=./lab3 citygame.proto
 
 COPY ./src .
 RUN chown -R appuser:appuser $APP_HOME

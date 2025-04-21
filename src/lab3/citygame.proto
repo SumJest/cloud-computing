@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package citygame;
+
+// Запрос на подключение к игре
+message JoinRequest {
+    string name = 1;  // Имя игрока
+}
+
+// Ответ на подключение
+message JoinReply {
+    string message = 1;
+}
+
+// Запрос хода
+message CityRequest {
+    string name = 1;  // Имя игрока
+    string city = 2;  // Название города
+}
+
+// Ответ на ход
+message CityReply {
+    string message = 1;
+    bool valid = 2;            // Был ли ход валидным
+    string next_letter = 3;    // Буква для следующего
+    bool eliminated = 4;       // Выбываете ли вы
+}
+
+// Запрос состояния игры
+message GameStateRequest {}
+
+// Ответ состояния
+message GameStateReply {
+    repeated string players = 1;
+    string last_city = 2;
+    string current_turn = 3;
+    bool finished = 4;
+    string winner = 5;
+}
+
+service CityGame {
+    rpc JoinGame (JoinRequest) returns (JoinReply);
+    rpc PlayCity (CityRequest) returns (CityReply);
+    rpc GetGameState (GameStateRequest) returns (GameStateReply);
+}
