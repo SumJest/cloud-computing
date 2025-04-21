@@ -41,11 +41,15 @@ RUN pip install \
       --find-links=/wheels \
       -r requirements.txt
 
-RUN python -m grpc_tools.protoc -I lab3 --python_out=./lab3 --grpc_python_out=./lab3 citygame.proto
+RUN ls $APP_HOME
+
+
 
 COPY ./src .
 RUN chown -R appuser:appuser $APP_HOME
 RUN chmod +x $APP_HOME/entrypoint.sh
 USER appuser
+
+RUN python -m grpc_tools.protoc -I lab3 --python_out=./lab3 --grpc_python_out=./lab3 citygame.proto
 
 ENTRYPOINT ["/app/entrypoint.sh"]
