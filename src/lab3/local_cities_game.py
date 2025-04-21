@@ -1,10 +1,13 @@
-cities_list = ['Москва', 'Архангельск', 'Казань', 'Нижний Новгород', 'Дубна', 'Анапа', 'Алма-Ата', 'Астрахань']
+from load_cities import load_russian_cities
+
+cities_list = load_russian_cities()
+
 used_cities = []
 current_letter = None
 
 print("Игра в города (локальная версия)")
 while True:
-    city = input("Введите город: ").strip().capitalize()
+    city = input("Введите город: ").strip().lower()
     if city in used_cities:
         print("Этот город уже был.")
         continue
