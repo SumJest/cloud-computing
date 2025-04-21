@@ -1,0 +1,1 @@
+python ./lab2/word_sort_server.py --host "$SERVER_HOST" --port "$SERVER_PORT"
